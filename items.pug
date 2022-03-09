@@ -1,0 +1,70 @@
+extends layout
+block content 
+    main(class="container bg-light rounded pb-3")
+        h1(class='pl-3') Items Manager
+        div(class="row pl-3")
+            div(class="col-sm")
+                p(class="lead") Lost and Found items
+
+        if(Admin === 1)
+            div(class="row pl-5")
+                div(class="d-inline-flex")
+                    h3 Add new Item: 
+                div(class="d-inline-flex pl-3")
+                    a(role="button" class="btn btn-outline-success" href="/createItem") Create New Item
+
+        table(class='table table-striped' id="table" data-filter-control="true" data-show-search-clear-button="true")
+            thead
+                th(data-field="item name" data-filter-control="input") Item Name
+                if(Admin === 1)
+                    th(data-field="description") Description
+                th(data-field="value") Value
+                if(Admin === 1)
+                    th(data-field="found by") Found by
+                th(data-field="date found") Date Found 
+                if(Admin === 1)
+                    th(data-field="claimed by") Claimed By
+                    th(data-field="date claimed") Date Claimed 
+                th(data-field="location" data-filter-control="select") Location 
+                th(data-field="category" data-filter-control="select") Category
+                if(Admin ===1)
+                    th(data-field="delete") Delete
+                    th(data-field='edit') Edit
+                else 
+                    th(data-field="view" data-sortable="true") View Details
+            
+            tbody
+                each d in Data
+                    tr
+                        td=d.item_name
+                        if(Admin === 1)
+                            td=d.item_description
+                        td=d.approx_value
+                        if(Admin === 1)
+                            td=d.found_user_id
+                        td=d.date_found
+                        if(Admin === 1)
+                            td #{d.first_name}  #{d.last_name}
+                            td=d.date_claimed
+                        td=d.location_name
+                        td=d.category_name
+                        if(Admin === 1)
+                            td
+                                form(method='post' action=`/items/${d.item_id}`)
+                                    input(class="btn btn-primary" type="submit" name='delete' value=`Delete` onClick="return confirm('Are you sure you want to delete')")
+                                    input(type="hidden" name='_method' value='DELETE')
+                            td
+                                form(method='get' action=`/editItem/${d.item_id}`)
+                                    input(class="btn btn-primary" type="submit" name='edit' value=`Edit`)
+                                    input(type="hidden" name='_method' value='EDIT')
+                        else 
+                            td
+                                if (d.date_claimed == null) 
+                                    form(method='get' action=`items/${d.item_id}`)
+                                        input(class="btn btn-primary" type="submit" value=`View Details`)
+                                else 
+                                    p Item claimed
+
+            
+
+

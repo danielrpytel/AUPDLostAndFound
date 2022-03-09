@@ -1,0 +1,45 @@
+extends layout
+block content 
+
+ main(class="container")
+        div(class="bg-light p-5 rounded")
+            h1 Create New Item:
+
+            div(class="row")
+                div(class="col-sm")
+                    each i in Item
+                        form(action=`/editItem/${i.item_id}` method='post')
+                            .form-group
+                                label(class="control-label col-sm-4" for="item_name") Item Name:
+                                input(type='text' class="form-control" name='item_name' id='item_name' required='' value=`${i.item_name}`)
+                            .form-group
+                                label(class="control-label col-sm-4" for="item_description") Item Description:
+                                input(type='text' class="form-control" name='item_description' id='item_description' value=`${i.item_description}`)
+                            .form-group
+                                label(class="control-label col-sm-4" for="approx_value") Approximate Value of Item:
+                                input(type='text' class="form-control" name='approx_value' id='approx_value' value=`${i.approx_value}`) 
+                            .form-group 
+                                label(class="control-label d-inline-flex p-2" for="category") Category:
+                                select(id="category" name="category")
+                                    each c in Category
+                                        option(value=`${c.category_id}`)=c.category_name
+                            .form-group 
+                                label(class="control-label d-inline-flex p-2" for="location_found") Location:
+                                select(id="location_found" name="location_found")
+                                    each l in Location
+                                        option(value=`${l.location_id}`) #{l.location_name} #{l.floor} 
+                                label(class="control-label d-inline-flex p-2" for="location_room") Room:
+                                    if (i.location_room)
+                                        input(type='text' class="d-inline-flex p-2" name='location_room' id='location_room' value=`${i.location_room}`)
+                                    else 
+                                        input(type='text' class="d-inline-flex p-2" name='location_room' id='location_room' value=``)
+                            .form-group
+                                label(class="control-label col-sm-4" for="location_description") Location Description
+                                    if (i.location_description)
+                                        input(type='text' class="form-control" name='location_description' id='location_description' value=`${i.location_description}`)
+                                    else 
+                                        input(type='text' class="form-control" name='location_description' id='location_description' value=``)
+                            .form-group
+                                input(type='hidden' id='found_user_id' name='found_user_id' value=``)
+                            input(type='submit' class='btn btn-outline-success' value="put")
+

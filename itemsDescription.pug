@@ -1,0 +1,27 @@
+extends layout
+block content
+    main(class="container")
+            div(class="bg-light p-5 rounded")
+                h1 Lost Item Details
+                    each d in Data
+                        h4 Item: 
+                            p(class="lead" style="margin-top: 10px") #{d.item_name}
+                        h4 Item description: 
+                            p(class="lead" style="margin-top: 10px") #{d.item_description}
+                        h4 Item value: 
+                            p(class="lead" style="margin-top: 10px") #{d.approx_value}
+                        h4 Item date found: 
+                            p(class="lead" style="margin-top: 10px") #{d.date_found}
+                        h4 Location found: 
+                            p(class="lead" style="margin-top: 10px") #{d.location_name} 
+                                if(d.floor) 
+                                    a on floor #{d.floor}
+                                if(d.location_room) 
+                                    a  in room #{d.location_room}
+                        h4 Location description: 
+                            p(class="lead" style="margin-top: 10px") #{d.location_description}
+                                form(method='get' action="/items" style="float: left")
+                                    input(class="btn btn-primary" type="submit" value="Back" )
+                                    
+                                form(method='post' action=`/items/${d.item_id}` style="float: left")
+                                    input(class="btn btn-primary" type="submit" value="Claim" style="margin-left: 20px;")

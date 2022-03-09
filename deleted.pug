@@ -1,0 +1,7 @@
+extends layout
+block content 
+    main(class="container")
+        div(class="bg-light p-5 rounded")
+            h2 Deleted #{DelName} ID: 
+            h2=ID
+            a(role="button" class="btn btn-outline-success" href="/items") Back

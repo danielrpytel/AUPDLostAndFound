@@ -1,0 +1,34 @@
+extends layout
+block content 
+    main(class="container")
+        div(class="bg-light p-5 rounded")
+            h1 Task Manager App
+            div(class="row")
+                div(class="col-sm")
+                    p(class="lead") Example to illustrate crud functionality
+                div(class="col-sm")
+                    <form action="/create">
+                        <input type="submit" class="btn btn-outline-success" value="New Task"/>
+            table.table.table-striped
+                thead
+                    th ID 
+                    th Task 
+                    th Status 
+                    th Created At
+                    th Delete
+                
+                tbody
+                    each t in Tasks
+                        tr
+                            td=t.id
+                            td=t.task 
+                            td=t.status 
+                            td=t.created_at
+                            td
+                                form(method='post' action=`/tasks/${t.id}`)
+                                    input(class="btn btn-primary" type="submit" name='delete' value=`Delete ${t.id}` onClick="return confirm('Are you sure you want to delete')")
+                                    input(type="hidden" name='_method' value='DELETE')
+
+            
+
+

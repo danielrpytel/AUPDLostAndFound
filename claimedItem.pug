@@ -1,0 +1,8 @@
+extends layout
+block content 
+    main(class="container")
+        div(class="bg-light p-5 rounded")
+            h1 You found your item!
+            p(class="lead") Please pick up your item at campus safety!
+                form(method='get' action="/items" style="float: left")
+                    input(class="btn btn-primary" type="submit" value="Back" )

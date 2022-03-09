@@ -1,0 +1,43 @@
+extends layout
+block content 
+    main(class="container")
+        div(class="bg-light p-5 rounded")
+            h1 Locations Manager
+            div(class="row")
+                div(class="col-sm")
+                    p(class="lead") Locations of lost and found items
+
+            h2 Create new Location:
+            div(class="row")
+                div(class="col-sm")
+                    form(action='locations' method='POST')
+                        .form-group
+                            label(class="control-label col-sm-4" for="location_name") Location Name (required):
+                            input(type='text' class="form-control" name='location_name' id='location_name' required='')
+                        .form-group
+                            label(class="control-label col-sm-2" for="floor") Floor:
+                            input(type='text' class="form-control" name='floor' id='floor')
+                        input(type='submit' class='btn btn-outline-success')
+            br
+
+            table.table.table-striped
+                thead
+                    th ID
+                    th Location Name
+                    th Floor
+                    th Delete
+                
+                tbody
+                    each d in Data
+                        tr
+                            td=d.location_id
+                            td=d.location_name
+                            td=d.floor
+                            td
+                                form(method='post' action=`/location/${d.location_id}`)
+                                    input(class="btn btn-primary" type="submit" name='delete' value=`Delete` onClick="return confirm('Are you sure you want to delete')")
+                                    input(type="hidden" name='_method' value='DELETE')
+
+            
+
+

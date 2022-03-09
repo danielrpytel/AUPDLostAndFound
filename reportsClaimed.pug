@@ -1,0 +1,26 @@
+extends layout
+block content 
+    main(class="container")
+        div(class="bg-light p-5 rounded")
+            h1 List of Claimed Items
+
+            table.table.table-striped
+                thead
+                    th Item Name
+                    th Date Found
+                    th Recovered By 
+                    th Date Claimed 
+                    th Claimed By
+                
+                tbody
+                    each d in Data
+                        tr
+                            td=d.item_name
+                            td=d.date_found 
+                            td=d.found_user_id 
+                            td=d.date_claimed 
+                            td=d.claimed_user_id
+
+            
+
+

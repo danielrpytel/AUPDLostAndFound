@@ -1,0 +1,34 @@
+extends layout
+block content 
+    main(class="container")
+        div(class="bg-light p-5 rounded")
+            h1 Categories Manager
+            div(class="row")
+                div(class="col-sm")
+                    p(class="lead") Categories of lost and found items
+
+            h2 Create new Category:
+            div(class="row")
+                div(class="col-sm")
+                    form(action='categories' method='POST')
+                        .form-group
+                            label(class="control-label col-sm-2" for="category_name") Category Name
+                            input(type='text' class="form-control" name='category_name' id='category_name' required='')
+                        input(type='submit' class='btn btn-outline-success')
+            br
+
+            table.table.table-striped
+                thead
+                    th ID
+                    th Name
+                    th Delete
+                
+                tbody
+                    each c in Data
+                        tr
+                            td=c.category_id
+                            td=c.category_name
+                            td
+                                form(method='post' action=`/category/${c.category_id}`)
+                                    input(class="btn btn-primary" type="submit" name='delete' value=`Delete` onClick="return confirm('Are you sure you want to delete')")
+                                    input(type="hidden" name='_method' value='DELETE')
