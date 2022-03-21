@@ -1,5 +1,5 @@
 "use strict";
-var sql = require("./db");
+var sql = require("../db");
 
 //Category object constructor
 var Category = function (category) {
